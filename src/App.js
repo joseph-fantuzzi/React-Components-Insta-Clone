@@ -50,12 +50,20 @@ const App = () => {
     );
   };
 
+  const getFilteredPosts = () => {
+    const sanitize = searchBar.trim().toLowerCase();
+    if (!sanitize) return posts;
+    return posts.filter((post) => {
+      return post.username.toLowerCase().includes(sanitize);
+    });
+  };
+
   return (
     <div className="App">
       {/* Add SearchBar and Posts here to render them */}
       {/* Check the implementation of each component, to see what props they require, if any! */}
-      <SearchBar />
-      <Posts likePost={likePost} posts={posts} />
+      <SearchBar setSearchBar={setSearchBar} />
+      <Posts likePost={likePost} posts={getFilteredPosts()} />
     </div>
   );
 };
